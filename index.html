@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mirrorfish | Transform Challenges into Opportunities</title>
+  <!-- Tailwind CSS v4 compatible via CDN + custom theme layer -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom configuration to match the provided design tokens (M3-like color system) -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Mapping the complete @theme color system from the provided CSS
+            'on-primary': '#ffffff',
+            'surface-bright': '#f9f9ff',
+            'on-tertiary-fixed': '#121c2a',
+            'on-tertiary-fixed-variant': '#3d4757',
+            'secondary-fixed-dim': '#b1c5ff',
+            'on-error': '#ffffff',
+            'on-surface-variant': '#43474e',
+            'primary-container': '#001f3f',
+            'outline-variant': '#c4c6cf',
+            'on-secondary-fixed-variant': '#00419d',
+            'primary': '#000613',
+            'error': '#ba1a1a',
+            'on-error-container': '#93000a',
+            'surface-container-lowest': '#ffffff',
+            'secondary-container': '#6795fe',
+            'surface-container-high': '#dee9fd',
+            'on-secondary-fixed': '#001946',
+            'inverse-surface': '#273140',
+            'on-primary-fixed-variant': '#2f486a',
+            'surface-variant': '#d9e3f7',
+            'on-tertiary': '#ffffff',
+            'tertiary': '#000613',
+            'surface-dim': '#d0daef',
+            'surface-container': '#e6eeff',
+            'on-surface': '#121c2a',
+            'on-tertiary-container': '#7d8799',
+            'on-primary-container': '#6f88ad',
+            'secondary': '#2259bf',
+            'surface-tint': '#476083',
+            'primary-fixed': '#d4e3ff',
+            'on-background': '#121c2a',
+            'outline': '#74777f',
+            'inverse-on-surface': '#ebf1ff',
+            'tertiary-fixed': '#d9e3f7',
+            'background': '#f9f9ff',
+            'surface-container-highest': '#d9e3f7',
+            'error-container': '#ffdad6',
+            'surface-container-low': '#eff3ff',
+            'tertiary-container': '#151f2e',
+            'surface': '#f9f9ff',
+            'tertiary-fixed-dim': '#bdc7db',
+            'on-primary-fixed': '#001c3a',
+            'on-secondary-container': '#002d71',
+            'inverse-primary': '#afc8f0',
+            'primary-fixed-dim': '#afc8f0',
+            'secondary-fixed': '#d9e2ff',
+            'on-secondary': '#ffffff',
+          },
+          fontFamily: {
+            'headline': ['Manrope', 'sans-serif'],
+            'body': ['Inter', 'sans-serif'],
+            'label': ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'DEFAULT': '0.125rem',
+            'lg': '0.25rem',
+            'xl': '0.5rem',
+            'full': '0.75rem',
+          },
+          animation: {
+            'float': 'float 2s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Google Fonts: Manrope (Headline) and Inter (Body/Label) -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Additional utility classes to match the provided motif and asymmetric gradient */
+    .motif-overlay {
+      background-image: radial-gradient(circle at 2px 2px, rgba(0, 31, 63, 0.03) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .asymmetric-gradient {
+      background: linear-gradient(135deg, #000613 0%, #001f3f 100%);
+    }
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+    /* Custom selection style */
+    ::selection {
+      background-color: #b1c5ff;
+      color: #001946;
+    }
+    body {
+      background-color: #f9f9ff;
+      color: #121c2a;
+    }
+    /* Custom hover transition for practice area cards (matching original interaction) */
+    .practice-card-hover:hover {
+      background-color: #eff3ff;
+      transition: all 0.2s ease;
+    }
+    .border-secondary\/30 {
+      border-color: rgba(34, 89, 191, 0.3);
+    }
+    .shadow-secondary\/20 {
+      box-shadow: 0 10px 15px -3px rgba(34, 89, 191, 0.2);
+    }
+    .shadow-secondary\/40 {
+      box-shadow: 0 20px 25px -5px rgba(34, 89, 191, 0.4);
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-sm transition-all duration-200 border-b border-outline-variant/20">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-5">
+      <div class="text-2xl font-black text-primary tracking-tighter font-headline">
+       <!-- Logo -->
+        <a href="index.html" class="text-2xl font-bold text-white tracking-tight">
+            <img src="logo/mirrorfish_blk.png" alt="Mirror Fish Logo" class="w-32 h-auto">
+        </a>
+      </div>
+      <div class="hidden md:flex items-center gap-10">
+        <a class="text-on-surface font-extrabold border-b-2 border-secondary pb-1 font-headline text-sm tracking-wide" href="#home">Home</a>
+        <a class="text-on-surface-variant hover:text-secondary transition-colors font-headline text-sm" href="#about">About</a>
+        <a class="text-on-surface-variant hover:text-secondary transition-colors font-headline text-sm" href="#practice">Practice Areas</a>
+        <a class="text-on-surface-variant hover:text-secondary transition-colors font-headline text-sm" href="#methodology">Methodology</a>
+        <a class="text-on-surface-variant hover:text-secondary transition-colors font-headline text-sm" href="#contact">Contact</a>
+      </div>
+      <a href="#contact" class="hidden lg:block bg-primary text-on-primary px-6 py-3 rounded-md font-headline font-bold text-sm hover:opacity-90 transition-all shadow-md asymmetric-gradient hover:shadow-lg">Build Something Extraordinary</a>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="relative min-h-screen flex items-center pt-28 overflow-hidden" id="home">
+    <div class="absolute inset-0 z-0">
+      <img class="w-full h-full object-cover opacity-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_KUDGxFl68pGtVhwNVY3vWoI4tBK5X-OrC2CEqCy3SmzS9qrk7JW8-up-erAZqc_BBLQoxIz3jAdYVT-T8eHxq3a1d2HIcPnjHnOmAHJo1Lb4gESXOCP7iKSkpPlQl1d3PjjUQ3nTGdeNpDRlhBgv5qLNYiuprOJqbOLzOU9BoCrB5Qu5Zp46G29vSBi6QGxIrwo-yDMLQNGXWMVZzTMM6SnkM5ijj2jA6rIupNiUCrRQGCJXNDelpfkentuvVV38o-lREtQwJ2Q" alt="Modern architectural interior" referrerPolicy="no-referrer">
+      <div class="absolute inset-0 bg-gradient-to-b from-surface via-transparent to-surface"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-8 transform transition-all duration-700 ease-out" style="animation: fadeUp 0.8s forwards;">
+        <span class="inline-block py-1 px-4 rounded-full bg-surface-container text-secondary font-label text-xs font-bold tracking-widest mb-6 shadow-sm">ESTABLISHED IN AFRICA</span>
+        <h1 class="text-5xl md:text-7xl font-headline font-extrabold text-primary leading-[1.1] tracking-tight mb-8">
+          MirrorFish <br/>Company <span class="text-secondary italic">Profile</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-on-surface-variant max-w-2xl font-light leading-relaxed mb-12">
+          Unlocking new possibilities through excellence in Technology, Media & Communication, Brand Strategy, and Design.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-6">
+          <a href="#contact" class="px-8 py-5 asymmetric-gradient text-on-primary rounded-md font-headline font-bold text-lg hover:opacity-95 transition-all shadow-xl shadow-primary/10 inline-block text-center hover:scale-[1.02] active:scale-[0.98] duration-200">Build Something Extraordinary</a>
+          <a href="#practice" class="px-8 py-5 text-secondary border border-outline-variant/40 rounded-md font-headline font-bold text-lg hover:bg-surface-container-low transition-all inline-block text-center hover:scale-[1.02] active:scale-[0.98] duration-200">View Case Studies</a>
+        </div>
+      </div>
+    </div>
+    <!-- scroll indicator -->
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 animate-bounce">
+      <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-on-surface-variant">Scroll</span>
+      <div class="w-[1px] h-12 bg-secondary/60"></div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT SECTION ========== -->
+<section class="py-32 bg-surface-container-low relative overflow-hidden" id="about">
+  <div class="motif-overlay absolute inset-0 opacity-30 pointer-events-none"></div>
+  <div class="max-w-7xl mx-auto px-8 relative z-10">
+    <!-- About Us Description -->
+    <div class="text-center max-w-4xl mx-auto mb-20">
+      <span class="inline-block py-1 px-4 rounded-full bg-secondary/10 text-secondary font-label text-xs font-bold tracking-widest mb-4">Who We Are</span>
+      <h2 class="text-4xl md:text-5xl font-headline font-extrabold text-primary mb-6">About Mirrorfish</h2>
+      <div class="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+      <p class="text-xl text-on-surface-variant leading-relaxed">Mirrorfish is a forward-thinking creative and technology-driven solutions company dedicated to helping businesses unlock new possibilities. We partner with organisations to transform challenges into opportunities by delivering excellence across four core practice areas: Technology, Media & Communication, Brand Strategy, and Design. Our approach blends insight, innovation, and execution to shape experiences that elevate brands, strengthen customer relationships, and drive measurable business growth.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-24 items-center">
+      <div class="space-y-12 order-2 lg:order-1">
+        <div class="transition-all duration-700 group">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+            <h2 class="text-xs font-label uppercase tracking-widest text-secondary font-semibold">Our Mission</h2>
+          </div>
+          <p class="text-2xl md:text-3xl font-headline font-bold text-primary leading-tight">To empower businesses with intelligent solutions that inspire performance, impact, and transformation.</p>
+        </div>
+        <div class="pl-6 border-l-2 border-secondary/30 transition-all duration-700 delay-100">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+            </div>
+            <h2 class="text-xs font-label uppercase tracking-widest text-secondary font-semibold">Our Vision</h2>
+          </div>
+          <p class="text-xl font-body text-on-surface-variant leading-relaxed">To be a leading African hub for innovative technology and world-class creative execution.</p>
+        </div>
+      </div>
+      <div class="relative group transition-all duration-700 hover:scale-[1.02] order-1 lg:order-2">
+        <div class="absolute -inset-4 bg-gradient-to-br from-secondary/10 to-transparent rounded-2xl transition-transform group-hover:scale-105"></div>
+        <img class="rounded-2xl shadow-2xl relative z-10 w-full h-[450px] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlSlpIoqcCZ52IVEVA7k289sfzCGRXLbzg2_inDpMH62mG8tZyF6AzlwhF78V5OUlQzxhQzHy0f_HM7k75jSsiQmP7_YqthZAwrM8zV_3IBN7hpsEYjgvdgJFFuVjAcWdlhlPneKyOif7SkJp1ZgZ2VhMFQryggD1UqYbmJt-0KuB4vZPmfksAcxf0Zl2QivPhHvBypwU69emnY6x7G4D25J4Bta-YdA8koAdvHk9ECQ-EOyb95JE5o8KmRFjMyMO4_D95aA3wlHY" alt="Diverse creative team" referrerPolicy="no-referrer">
+        <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
+          <p class="text-xs font-bold text-primary">✨ 10+ Years of Excellence</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Core Values Section with improved styling -->
+    <div class="text-center mb-12">
+      <h3 class="text-2xl md:text-3xl font-headline font-bold text-primary mb-4">Our Core Values</h3>
+      <p class="text-on-surface-variant max-w-2xl mx-auto">The principles that guide everything we do</p>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Integrity -->
+      <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group">
+        <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-5 group-hover:bg-secondary/20 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-secondary w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+        </div>
+        <h3 class="text-xl font-headline font-bold mb-3 text-primary">Integrity</h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">We commit to delivering what we promise, with transparency and accountability.</p>
+      </div>
+      <!-- Creativity -->
+      <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group">
+        <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-5 group-hover:bg-secondary/20 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-secondary w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M3 9.75L12 3l9 6.75M12 3v16.5" /></svg>
+        </div>
+        <h3 class="text-xl font-headline font-bold mb-3 text-primary">Creativity</h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Ideas fuel everything we do. We push boundaries to find unexpected solutions.</p>
+      </div>
+      <!-- Excellence -->
+      <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group">
+        <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-5 group-hover:bg-secondary/20 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-secondary w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728m9.12-4.492A10.45 10.45 0 0018.75 4.5v-.764a49.108 49.108 0 00-2.916.52 6.003 6.003 0 014.896 5.228M14.25 14.25a3 3 0 00-4.5 0" /></svg>
+        </div>
+        <h3 class="text-xl font-headline font-bold mb-3 text-primary">Excellence</h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Quality, consistency, and performance are non-negotiable in everything we deliver.</p>
+      </div>
+      <!-- Collaboration -->
+      <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group">
+        <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-5 group-hover:bg-secondary/20 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-secondary w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        </div>
+        <h3 class="text-xl font-headline font-bold mb-3 text-primary">Collaboration</h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">We succeed when we co-create with our clients, partners, and communities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  
+ <!-- ========== PARTNERS SECTION ========== -->
+<section class="py-24 bg-surface-container border-y border-outline-variant/20">
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="text-center max-w-3xl mx-auto">
+      <p class="text-center font-label text-[10px] uppercase tracking-[0.5em] text-on-surface-variant mb-3 font-semibold">Trusted By Industry Leaders</p>
+      <h2 class="text-4xl font-headline font-bold text-primary mb-12 text-center">Our experience spans large corporate and institutional clients across industries.</h2>
+    </div>
+    <div class="flex flex-wrap justify-center items-center gap-16 md:gap-24 grayscale opacity-70 hover:grayscale-0 transition-all duration-700">
+      <!-- DIAGEO Logo -->
+      <div class="flex flex-col items-center gap-3">
+        <img src="companies_logo/diageo.png" alt="DIAGEO" class="h-16 w-auto object-contain">
+        <!-- <span class="font-headline font-bold text-xl tracking-tighter text-primary">DIAGEO</span> -->
+      </div>
+      
+      <!-- NIGERIAN BREWERIES Logo -->
+      <div class="flex flex-col items-center gap-3">
+        <img src="companies_logo/nb.png" alt="NIGERIAN BREWERIES" class="h-16 w-auto object-contain">
+        <!-- <span class="font-headline font-bold text-xl tracking-tighter text-primary">NIGERIAN BREWERIES</span> -->
+      </div>
+      
+      <!-- ACCESS BANK Logo -->
+      <div class="flex flex-col items-center gap-3">
+        <img src="companies_logo/Access_Bank.png" alt="ACCESS BANK" class="h-16 w-auto object-contain">
+        <!-- <span class="font-headline font-bold text-xl tracking-tighter text-primary">ACCESS BANK</span> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- ========== PRACTICE AREAS ========== -->
+  <section class="py-32 bg-surface" id="practice">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="mb-20">
+        <h2 class="text-4xl font-headline font-extrabold text-primary mb-6">What We Do</h2>
+        <div class="w-24 h-1 bg-secondary mb-8"></div>
+         <h3 class="text-xl font-label uppercase tracking-widest text-secondary font-semibold mb-4">Mirrorfish delivers excellence through four specialised practice areas:</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/20 overflow-hidden rounded-lg">
+        <!-- Technology -->
+        <div class="bg-surface p-12 transition-all duration-300 practice-card-hover group border-b md:border-b-0 border-outline-variant/20">
+          <div class="flex justify-between items-start mb-12"><svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-primary-container group-hover:text-secondary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg><span class="text-xs font-label opacity-40 font-bold">01</span></div>
+          <h3 class="text-2xl font-headline font-bold mb-4 text-primary">Technology</h3>
+          <p class="text-on-surface-variant text-lg leading-relaxed mb-8">We build smart, scalable software solutions that turn business challenges into opportunities. From digital product development to workflow automation and enterprise tools, our technology team transforms complex problems into intuitive solutions.</p>
+          <a class="inline-flex items-center text-secondary font-bold gap-2 group/link hover:gap-3 transition-all" href="#">Learn More <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg></a>
+        </div>
+        <!-- Media & Communication -->
+        <div class="bg-surface p-12 transition-all duration-300 practice-card-hover group border-b md:border-b-0 border-outline-variant/20">
+          <div class="flex justify-between items-start mb-12"><svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-primary-container group-hover:text-secondary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 6.75L6 9.75m0 0l3.75 3M6 9.75h9a3 3 0 013 3v3M12 15l3 3m0 0l-3-3m3 3h-9a3 3 0 01-3-3v-3" /></svg><span class="text-xs font-label opacity-40 font-bold">02</span></div>
+          <h3 class="text-2xl font-headline font-bold mb-4 text-primary">Media & Communication</h3>
+          <p class="text-on-surface-variant text-lg leading-relaxed mb-8">We craft compelling stories that help brands rise above noise and connect meaningfully with their customers. Our team develops communication strategies, campaign content, and media initiatives that drive recall, engagement, and loyalty.</p>
+          <a class="inline-flex items-center text-secondary font-bold gap-2 group/link hover:gap-3 transition-all" href="#">Learn More <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg></a>
+        </div>
+        <!-- Brand Strategy -->
+        <div class="bg-surface p-12 transition-all duration-300 practice-card-hover group border-t md:border-t-0 border-outline-variant/20">
+          <div class="flex justify-between items-start mb-12"><svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-primary-container group-hover:text-secondary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.38.138.752.43.992l1.004.827c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.645-.87a6.57 6.57 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.38-.138-.752-.43-.992l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.49l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.645-.869l.214-1.281z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span class="text-xs font-label opacity-40 font-bold">03</span></div>
+          <h3 class="text-2xl font-headline font-bold mb-4 text-primary">Brand Strategy</h3>
+          <p class="text-on-surface-variant text-lg leading-relaxed mb-8">We help organisations discover and define their “why” — the foundational truth behind their purpose and identity. Whether launching, repositioning or scaling, we use insight-driven strategy to unlock a brand’s potential and build long-term value.</p>
+          <a class="inline-flex items-center text-secondary font-bold gap-2 group/link hover:gap-3 transition-all" href="#">Learn More <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg></a>
+        </div>
+        <!-- Design -->
+        <div class="bg-surface p-12 transition-all duration-300 practice-card-hover group border-t md:border-t-0 border-outline-variant/20">
+          <div class="flex justify-between items-start mb-12"><svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-primary-container group-hover:text-secondary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg><span class="text-xs font-label opacity-40 font-bold">04</span></div>
+          <h3 class="text-2xl font-headline font-bold mb-4 text-primary">Design</h3>
+          <p class="text-on-surface-variant text-lg leading-relaxed mb-8">Our multidisciplinary designers translate ideas into beautiful, functional outcomes. From visual identity systems to product concepts, campaigns, and digital experiences, our design work leads to game-changing results.</p>
+          <a class="inline-flex items-center text-secondary font-bold gap-2 group/link hover:gap-3 transition-all" href="#">Learn More <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== METHODOLOGY SECTION ========== -->
+  <section class="py-32 bg-primary text-on-primary relative overflow-hidden" id="methodology">
+    <div class="absolute inset-0 opacity-10 motif-overlay pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-8 relative z-10">
+      <div class="text-center mb-24">
+        <h2 class="text-4xl font-headline font-extrabold mb-4">The ICE Methodology</h2>
+        <p class="text-on-primary-container font-body max-w-xl mx-auto opacity-90">Our ICE approach delivers outstanding results across four key practice areas.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="relative flex flex-col items-center text-center p-8">
+          <div class="w-24 h-24 rounded-full border border-secondary/60 flex items-center justify-center text-4xl font-headline font-black mb-8 shadow-2xl bg-primary-container/60 text-secondary shadow-secondary/20">I</div>
+          <h3 class="text-2xl font-headline font-bold mb-4 tracking-wider">Ideate</h3>
+          <p class="text-on-primary-container font-light leading-relaxed">We combine research & insight to find unique solutions to complex business problems </p>
+        </div>
+        <div class="relative flex flex-col items-center text-center p-8">
+          <div class="w-24 h-24 rounded-full border border-secondary flex items-center justify-center text-4xl font-headline font-black mb-8 shadow-2xl bg-secondary text-primary shadow-secondary/40">C</div>
+          <h3 class="text-2xl font-headline font-bold mb-4 tracking-wider">Create</h3>
+          <p class="text-on-primary-container font-light leading-relaxed">Our multi-disciplinary teams transform ideas into game-changing campaigns and products. </p>
+        </div>
+        <div class="relative flex flex-col items-center text-center p-8">
+          <div class="w-24 h-24 rounded-full border border-secondary/60 flex items-center justify-center text-4xl font-headline font-black mb-8 shadow-2xl bg-primary-container/60 text-secondary shadow-secondary/20">E</div>
+          <h3 class="text-2xl font-headline font-bold mb-4 tracking-wider">Evaluate</h3>
+          <p class="text-on-primary-container font-light leading-relaxed">Our dynamic evaluation process helps us to consistently deliver excellent results.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA SECTION ========== -->
+  <section class="py-32 bg-surface" id="contact">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="bg-primary p-12 md:p-24 rounded-lg relative overflow-hidden group shadow-2xl" style="background: linear-gradient(135deg, #000613 0%, #001f3f 100%);">
+        <div class="motif-overlay absolute inset-0 opacity-10"></div>
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-4xl md:text-5xl font-headline font-extrabold text-white mb-6 leading-tight">Partner with Mirrorfish for bold ideas and strategic transformation.</h2>
+            <p class="text-on-primary-container text-lg max-w-md opacity-90">Let's build something that redefines your industry. Reach out to our strategy team today.</p>
+          </div>
+          <div class="flex flex-col gap-8 lg:items-end">
+            <a class="text-3xl md:text-4xl font-headline font-bold text-white hover:text-secondary transition-colors underline underline-offset-8 decoration-secondary/50" href="mailto:info@mirror-fish.com">info@mirror-fish.com</a>
+            <div class="flex gap-4">
+              <a href="mailto:info@mirror-fish.com?subject=Project%20Inquiry" class="px-8 py-4 bg-secondary text-on-primary rounded-md font-headline font-bold hover:scale-105 active:scale-95 transition-all inline-block text-center shadow-lg">Start a Project</a>
+              <a href="#" class="px-8 py-4 bg-white/10 text-white rounded-md font-headline font-bold backdrop-blur-sm hover:bg-white/20 transition-all inline-block text-center">Download Brochure</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER SECTION ========== -->
+  <footer class="w-full pt-20 pb-10 bg-primary text-white font-body text-sm leading-relaxed" style="background-color: #000613;">
+    <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div>
+        <span class="text-xl font-bold text-white mb-4 block font-headline"><img src="logo/mirrorfish_logo.png" alt="Mirror Fish Logo" class="w-32 h-auto"></span>
+        <p class="text-white max-w-xs mb-8 opacity-70">Redefining the African technology and brand landscape through excellence, innovation, and strategic design.</p>
+        <div class="flex gap-6">
+          <a class="text-white  hover:text-secondary transition-colors" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" /></svg></a>
+          <a class="text-white  hover:text-secondary transition-colors" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12.75 19.5v-.75a7.5 7.5 0 00-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg></a>
+          <a class="text-white  hover:text-secondary transition-colors" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253" /></svg></a>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-12">
+        <div>
+          <h4 class="font-headline font-bold text-white mb-6 uppercase tracking-widest text-[10px] opacity-80">Reach Us</h4>
+          <p class="text-white  mb-2 opacity-80">6B, Maitama Sule Street, Ikoyi, Lagos State, Nigeria</p>
+          <p class="text-white  opacity-80">info@mirror-fish.com</p>
+        </div>
+        <div>
+          <h4 class="font-headline font-bold text-white mb-6 uppercase tracking-widest text-[10px] opacity-80">Quick Links</h4>
+          <ul class="space-y-4">
+            <li><a class="text-white  hover:text-secondary transition-colors" href="#about">Our Story</a></li>
+            <li><a class="text-white  hover:text-secondary transition-colors" href="#practice">Practice Areas</a></li>
+            <li><a class="text-white  hover:text-secondary transition-colors" href="#">Careers</a></li>
+            <li><a class="text-white  hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-8 mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-white  opacity-60"> &copy; <span id="currentYear"></span> Mirrorfish. All rights reserved.</p>
+      <div class="flex gap-8">
+        <a class="text-white  hover:text-secondary transition-colors" href="#">LinkedIn</a>
+        <a class="text-white  hover:text-secondary transition-colors" href="#">Twitter</a>
+        <a class="text-white  hover:text-secondary transition-colors" href="#">Instagram</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+  <style>
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .lg\:col-span-8 {
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+  </style>
+</body>
+</html>
